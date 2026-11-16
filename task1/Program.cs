@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Solid1
 {
-    //Який принцип S.O.L.I.D. порушено? Виправте!
+    //Який принцип S.O.L.I.D. порушено? Виправте! В.:Принцип єдиного обов’язку
     class Item
     {
 
@@ -33,15 +33,22 @@ namespace Solid1
         public void GetItemCount() {/*...*/}
         public void AddItem(Item item) {/*...*/}
         public void DeleteItem(Item item) {/*...*/}
-
-        public void PrintOrder() {/*...*/}
-        public void ShowOrder() {/*...*/}
-
-        public void Load() {/*...*/}
-        public void Save() {/*...*/}
-        public void Update() {/*...*/}
-        public void Delete() {/*...*/}
+     }
+    class OrderViewer
+    {
+        public void PrintOrder(Order order) {/*...*/}
+        public void ShowOrder(Order order) {/*...*/}
     }
+
+
+    class OrderRepository
+    {
+        public void Load(int orderId) {/*...*/}
+        public void Save(Order order) {/*...*/}
+        public void Update(Order order) {/*...*/}
+        public void Delete(Order order) {/*...*/}
+    }
+
 
     class Program
     {

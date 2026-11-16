@@ -1,6 +1,6 @@
 ﻿using System;
 
-//Який принцип S.O.L.I.D. порушено? Виправте!
+//Який принцип S.O.L.I.D. порушено? Виправте! В.:Принцип єдиного обов’язку, принцип інверсії залежностей та відкритості/закритості
 
 /*Зверніть увагу на клас EmailSender. Крім того, що за допомогою методу Send, він відправляє повідомлення, 
 він ще і вирішує як буде вестися лог. В даному прикладі лог ведеться через консоль.
@@ -14,12 +14,35 @@ class Email
     public String To { get; set; }
 }
 
+interface ILogger
+{
+    void Log(string message);
+}
+
+
+class ConsoleLogger : ILogger
+{
+    public void Log(string message)
+    {
+        Console.WriteLine(message);
+    }
+}
+
+
 class EmailSender
 {
+    private readonly ILogger _logger;
+
+   
+    public EmailSender(ILogger logger)
+    {
+        _logger = logger;
+    }
+
     public void Send(Email email)
     {
         // ... sending...
-        Console.WriteLine("Email from '" + email.From + "' to '" + email.To + "' was send");
+        _logger.Log("Email from '" + email.From + "' to '" + email.To + "' was sent");
     }
 }
 
@@ -34,7 +57,10 @@ class Program
         Email e5 = new Email() { From = "Me", To = "Vasya", Theme = "Yes" };
         Email e6 = new Email() { From = "Vasya", To = "Petya", Theme = "+2" };
 
-        EmailSender es = new EmailSender();
+        
+        ILogger logger = new ConsoleLogger();
+        EmailSender es = new EmailSender(logger);
+
         es.Send(e1);
         es.Send(e2);
         es.Send(e3);

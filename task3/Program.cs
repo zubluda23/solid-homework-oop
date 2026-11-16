@@ -1,34 +1,32 @@
 ﻿using System;
 
-class Rectangle
+namespace Solid_3 
 {
-    public virtual int Width { get; set; }
-    public virtual int Height { get; set; }
-    public int GetRectangleArea()
+    
+    public interface IShape
     {
-        return Width * Height;
+        int GetArea();
     }
-}
 
-//квадрат наслідується від прямокутника!!!
-class Square : Rectangle
-{
-    public override int Width
+    public class Rectangle : IShape
     {
-        get { return base.Width; }
-        set
+        public int Width { get; set; }
+        public int Height { get; set; }
+
+        public int GetArea()
         {
-            base.Height = value;
-            base.Width = value;
+            return Width * Height;
         }
     }
-    public override int Height
+
+    
+    public class Square : IShape
     {
-        get { return base.Height; }
-        set
+        public int Side { get; set; }
+
+        public int GetArea()
         {
-            base.Height = value;
-            base.Width = value;
+            return Side * Side;
         }
     }
 
@@ -36,13 +34,13 @@ class Square : Rectangle
     {
         static void Main(string[] args)
         {
-            Rectangle rect = new Square();
-            rect.Width = 5;
-            rect.Height = 10;
+            IShape rect = new Rectangle { Width = 5, Height = 10 };
+            IShape square = new Square { Side = 5 };
 
-            Console.WriteLine(rect.GetRectangleArea());
-            //Відповідь 100? Що не так???
+            Console.WriteLine($"Area of a rectangle: {rect.GetArea()}"); 
+            Console.WriteLine($"Area of a square: {square.GetArea()}");    
             Console.ReadKey();
         }
     }
 }
+// В.: Порушено принцип підстановки Барбари Лісков.
