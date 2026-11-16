@@ -54,6 +54,19 @@ namespace Solid1
     {
         static void Main()
         {
+            Console.OutputEncoding = Encoding.UTF8;
+            Console.InputEncoding = Encoding.UTF8;
+
+            Order order = new Order();
+            order.AddItem(new Item());
+
+            OrderViewer viewer = new OrderViewer();
+            viewer.ShowOrder(order);
+
+            OrderRepository repo = new OrderRepository();
+            repo.Save(order);
+
+            Console.WriteLine("Замовлення успішно оброблено!");
         }
     }
 }
